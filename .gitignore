@@ -1,0 +1,7 @@
+# Macbook
+.DS_Store
+*/.DS_Store
+
+# jupyter checkout
+.ipynb_checkpoints
+*/.ipynb_checkpoints
