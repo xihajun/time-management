@@ -41,6 +41,11 @@ ax.grid(True)
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 plt.savefig('../image/test.png', bbox_inches = 'tight')
   
+  
+  
+# count the days
+pd.DataFrame(data.loc[data.time<7].Event).to_csv('../data/7.csv')
+events_num = len(pd.DataFrame(data.loc[data.time<7].Event).iloc[0])
 # Send email
 # Python code to illustrate Sending mail with attachments 
 # from your Gmail account 
@@ -68,10 +73,16 @@ msg['To'] = toaddr
 msg['Subject'] = "Your Deadline Timetable"
 
 # string to store the body of the mail 
-body = "Your Deadline Timetable"
+body = "Your Deadline Timetable" + "\n"
+for i in range(events_num):
+    body+=str(pd.DataFrame(data.loc[data.time<7].time).iloc[0][i]) + " days: " + pd.DataFrame(data.loc[data.time<7].Event).iloc[0][i] + "\n"
 
 # attach the body with the msg instance 
 msg.attach(MIMEText(body, 'plain')) 
+
+# add csv data
+msg1 = MIMEText(open("../data/7.csv").read())
+msg.attach(msg1)
 
 # open the file to be sent 
 filename = "test.png"
